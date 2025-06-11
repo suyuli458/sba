@@ -1,0 +1,43 @@
+{
+    "log":{
+        "access":"/dev/null",
+        "error":"/dev/null",
+        "loglevel":"none"
+    },
+    "inbounds":[
+        {
+          "tag":"vmess-ws",
+          "port": ${PORT},
+          "listen": "0.0.0.0",
+          "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "${UUID}"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "/vmess-argo"
+                }
+            }
+        }
+    ],
+    "dns":{
+        "servers":[
+            "https+local://8.8.8.8/dns-query"
+        ]
+    },
+    "outbounds": [
+        {
+          "protocol": "freedom",
+          "tag": "direct"
+          },
+        {
+          "protocol": "blackhole",
+          "tag": "blocked"
+        }
+    ] 
+}
